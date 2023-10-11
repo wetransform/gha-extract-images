@@ -27,7 +27,7 @@ runs:
     - name: Extract Images from Kubernetes manifests
       id: extract
       run: |
-        images=$(yq eval-all -o=json '.spec.containers[].image' ${{ github.workspace }}/path/to/your/manifest.yaml)
+        images=$(yq eval-all -o=json '.spec.containers[].image' ${{ inputs.input-file }})
         echo "images=$(echo $images)" >> $GITHUB_OUTPUT
       shell: bash
 
