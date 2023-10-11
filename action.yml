@@ -1,5 +1,5 @@
 name: 'Extract image list'
-description: 'Extract a list of Docker images from a source file (Kubernetes manifest)'
+description: 'Extract a list of Docker images from a source file (Kubernetes manifests or Docker Compose)'
 inputs:
   input-file:
     description: Path to input file or folder
@@ -15,24 +15,18 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # - name: Install jq
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y jq
-    #   shell: bash
+    - name: Add action folder to path
+      run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
 
-    - name: Install yq
-      uses: dcarbone/install-yq-action@v1.1.1
-      # uses: chrisdickinson/setup-yq@v1.0.0 # Note: Uses unsupported GHA features and thus no longer works
-
-    - name: Extract Images from Kubernetes manifests
+    - name: Extract Images
       id: extract
       run: |
-        images=$(yq eval-all -o=json '.spec.containers[].image' ${{ inputs.input-file }})
+        extract.groovy ${{ inputs.input-file }} images.json
 
-        echo "Images identified: $images"
+        IMAGES=$(<images.json)
 
-        echo "images=$(echo $images)" >> $GITHUB_OUTPUT
+        echo "images=$(echo $IMAGES)" >> $GITHUB_OUTPUT
       shell: bash
 
     # - name: Combine Image list with input
