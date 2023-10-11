@@ -21,7 +21,7 @@ runs:
     #   shell: bash
 
     - name: Install yq
-      uses: chrisdickinson/setup-yq@v1
+      uses: chrisdickinson/setup-yq@v1.0.0
 
     - name: Extract Images from Kubernetes manifests
       id: extract
