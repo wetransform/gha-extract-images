@@ -4,13 +4,14 @@ inputs:
   input-file:
     description: Path to input file or folder
     required: true
-  add-images:
-    description: Additional images to add to the result (Json array)
-    default: '[]'
+  # add-images:
+  #   description: Additional images to add to the result (Json array)
+  #   default: '[]'
 outputs:
   images:
     description: List of images (Json array)
-    value: ${{ steps.combine.outputs.combined_images }}
+    # value: ${{ steps.combine.outputs.combined_images }}
+    value: ${{ steps.extract.outputs.images }}
 runs:
   using: "composite"
   steps:
@@ -28,17 +29,20 @@ runs:
       id: extract
       run: |
         images=$(yq eval-all -o=json '.spec.containers[].image' ${{ inputs.input-file }})
+
+        echo "Images identified: $images"
+
         echo "images=$(echo $images)" >> $GITHUB_OUTPUT
       shell: bash
 
-    - name: Combine Image list with input
-      id: combine
-      run: |
-        combined_images=$(jq -s '.[0] + .[1]' <<< "${{ steps.extract.outputs.images }}" "${{ inputs.add-images }}")
-        echo "combined_images=$(echo $combined_images)" >> $GITHUB_OUTPUT
-      shell: bash
+    # - name: Combine Image list with input
+    #   id: combine
+    #   run: |
+    #     combined_images=$(jq -s '.[0] + .[1]' <<< "${{ steps.extract.outputs.images }}" "${{ inputs.add-images }}")
+    #     echo "combined_images=$(echo $combined_images)" >> $GITHUB_OUTPUT
+    #   shell: bash
 
-    - name: Display Combined Images
-      run: |
-        echo "Images: ${{ steps.combine.outputs.combined_images }}"
-      shell: bash
+    # - name: Display Combined Images
+    #   run: |
+    #     echo "Images: ${{ steps.combine.outputs.combined_images }}"
+    #   shell: bash
