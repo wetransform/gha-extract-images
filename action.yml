@@ -52,7 +52,7 @@ runs:
     #     echo "combined_images=$(echo $combined_images)" >> $GITHUB_OUTPUT
     #   shell: bash
 
-    # - name: Display Combined Images
-    #   run: |
-    #     echo "Images: ${{ steps.combine.outputs.combined_images }}"
-    #   shell: bash
+    - name: Display output
+      run: |
+        echo "Images: ${{ steps.extract.outputs.images }}"
+      shell: bash
