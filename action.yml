@@ -14,13 +14,14 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Install jq and yq
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y jq
-        curl -sL https://github.com/mikefarah/yq/releases/download/4.6.3/yq_linux_amd64 -o /usr/local/bin/yq
-        chmod +x /usr/local/bin/yq
-      shell: bash
+    # - name: Install jq
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y jq
+    #   shell: bash
+
+    - name: Install yq
+      uses: chrisdickinson/setup-yq@v1
 
     - name: Extract Images from Kubernetes manifests
       id: extract
