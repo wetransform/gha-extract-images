@@ -137,6 +137,13 @@ else {
 // remove duplicates
 tags = tags.unique()
 
+// add docker.io if applicable
+tags = tags.collect { tag ->
+  if (tag.count('/') <= 1) {
+    tag = 'docker.io/' + tag
+  }
+}
+
 println "Found ${tags.size} images:"
 
 println JsonOutput.prettyPrint(JsonOutput.toJson(tags))
