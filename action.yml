@@ -4,6 +4,10 @@ inputs:
   input-file:
     description: Path to input file or folder
     required: true
+  add-java:
+    description: If Java should be added - required to run Groovy script
+    # FIXME rather run in Docker?
+    default: 'false'
   # add-images:
   #   description: Additional images to add to the result (Json array)
   #   default: '[]'
@@ -15,6 +19,20 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Install Java
+      if: ${{ inputs.add-java == 'true' }}
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Install Groovy
+      run: |
+        curl -s get.sdkman.io | bash
+        source "$HOME/.sdkman/bin/sdkman-init.sh"
+        sdk install groovy
+      shell: bash
+
     - name: Add action folder to path
       run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
