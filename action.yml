@@ -21,7 +21,8 @@ runs:
     #   shell: bash
 
     - name: Install yq
-      uses: chrisdickinson/setup-yq@v1.0.0
+      uses: dcarbone/install-yq-action@v1.1.1
+      # uses: chrisdickinson/setup-yq@v1.0.0 # Note: Uses unsupported GHA features and thus no longer works
 
     - name: Extract Images from Kubernetes manifests
       id: extract
