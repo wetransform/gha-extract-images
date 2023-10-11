@@ -138,11 +138,13 @@ else {
 tags = tags.unique()
 
 // add docker.io if applicable
+/* XXX does not seem to be necessary
 tags = tags.collect { tag ->
   if (tag.count('/') <= 1) {
     tag = 'docker.io/' + tag
   }
 }
+*/
 
 println "Found ${tags.size} images:"
 
