@@ -27,7 +27,7 @@ runs:
       run: |
         images=$(yq eval-all -j '.spec.containers[].image' ${{ github.workspace }}/path/to/your/manifest.yaml)
         echo "images=$(echo $images)" >> $GITHUB_OUTPUT
-
+      shell: bash
 
     - name: Combine Image list with input
       id: combine
@@ -39,3 +39,4 @@ runs:
     - name: Display Combined Images
       run: |
         echo "Images: ${{ steps.combine.outputs.combined_images }}"
+      shell: bash
