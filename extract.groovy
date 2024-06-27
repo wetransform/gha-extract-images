@@ -2,7 +2,7 @@
 
 /*
  * Usage:
- * ./extract.groovy <path-to-manifest/compose-file> <path-to-target-file>
+ * ./extract.groovy <path-to-manifest/compose-file> <path-to-target-file> [<path-to-json-array-with-additional-images>]
  *
  */
 
@@ -149,6 +149,34 @@ tags = tags.collect { tag ->
 println "Found ${tags.size} images:"
 
 println JsonOutput.prettyPrint(JsonOutput.toJson(tags))
+
+if (args.length > 2) {
+  def extraPath = args[2]
+  def extraFile = new File(extraPath)
+
+  println "Checking file $extraPath for additional images..."
+
+  if (extraFile.exists() && !extraFile.isDirectory()) {
+    def json = new groovy.json.JsonSlurper().parse(extraFile)
+    if (json instanceof List) {
+      println "Found ${json.size()} images:"
+      println JsonOutput.prettyPrint(JsonOutput.toJson(json))
+      println "Merging with extracted images..."
+      tags.addAll(json)
+      tags = tags.unique()
+      println "Total ${tags.size} images"
+    }
+    else {
+      println "File is not a Json array, skipping"
+    }
+  }
+  else {
+    println "File not found, skipping"
+  }
+}
+
+// sort images
+tags = tags.sort()
 
 
 // write target file

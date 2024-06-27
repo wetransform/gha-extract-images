@@ -8,13 +8,12 @@ inputs:
     description: If Java should be added - required to run Groovy script
     # FIXME rather run in Docker?
     default: 'false'
-  # add-images:
-  #   description: Additional images to add to the result (Json array)
-  #   default: '[]'
+  add-images:
+    description: Additional images to add to the result (Json array)
+    default: ''
 outputs:
   images:
     description: List of images (Json array)
-    # value: ${{ steps.combine.outputs.combined_images }}
     value: ${{ steps.extract.outputs.images }}
 runs:
   using: "composite"
@@ -35,22 +34,22 @@ runs:
       run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
 
+    - name: Write file with additional images
+      if: ${{ inputs.add-images != '' }}
+      run: |
+        cat <<EOF > extract_add_images.json
+        ${{ inputs.add-images }}
+        EOF
+
     - name: Extract Images
       id: extract
       run: |
-        extract.groovy ${{ inputs.input-file }} images.json
+        extract.groovy ${{ inputs.input-file }} images.json extract_add_images.json
 
         IMAGES=$(<images.json)
 
         echo "images=$(echo $IMAGES)" >> $GITHUB_OUTPUT
       shell: bash
-
-    # - name: Combine Image list with input
-    #   id: combine
-    #   run: |
-    #     combined_images=$(jq -s '.[0] + .[1]' <<< "${{ steps.extract.outputs.images }}" "${{ inputs.add-images }}")
-    #     echo "combined_images=$(echo $combined_images)" >> $GITHUB_OUTPUT
-    #   shell: bash
 
     - name: Display output
       run: |
