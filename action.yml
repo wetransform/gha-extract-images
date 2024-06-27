@@ -40,6 +40,7 @@ runs:
         cat <<EOF > extract_add_images.json
         ${{ inputs.add-images }}
         EOF
+      shell: bash
 
     - name: Extract Images
       id: extract
