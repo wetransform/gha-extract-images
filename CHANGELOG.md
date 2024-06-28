@@ -1,3 +1,15 @@
+## [1.1.0](https://github.com/wetransform/gha-extract-images/compare/v1.0.0...v1.1.0) (2024-06-28)
+
+
+### Features
+
+* support merging with list of additional images ([de42161](https://github.com/wetransform/gha-extract-images/commit/de4216174798f846c095e3e434c10e0236ec9e3f)), closes [ING-4250](https://wetransform.atlassian.net/browse/ING-4250)
+
+
+### Bug Fixes
+
+* add missing shell configuration ([2a264ed](https://github.com/wetransform/gha-extract-images/commit/2a264ede61075696c5aeba1c27b2c47ad9b30ae5))
+
 ## 1.0.0 (2024-06-19)
 
 
