@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/wetransform/gha-extract-images/compare/v1.1.0...v1.1.1) (2024-10-31)
+
+### Bug Fixes
+
+* **deps:** update actions/setup-java action to v4.2.2 ([166cb6b](https://github.com/wetransform/gha-extract-images/commit/166cb6b9047db81b7cc6e3236f778df074d73f6f))
+* **deps:** update actions/setup-java action to v4.3.0 ([a632eb5](https://github.com/wetransform/gha-extract-images/commit/a632eb58bcf77696210e18d493829afd1be650ab))
+* **deps:** update actions/setup-java action to v4.4.0 ([6812bf8](https://github.com/wetransform/gha-extract-images/commit/6812bf8a318db5bdfb0032d97ac3d4d920a8f13d))
+* use correct access for size method ([243eb18](https://github.com/wetransform/gha-extract-images/commit/243eb18c2afab6e4d4f341dc107934c58eda85db))
+
 ## [1.1.0](https://github.com/wetransform/gha-extract-images/compare/v1.0.0...v1.1.0) (2024-06-28)
 
 
