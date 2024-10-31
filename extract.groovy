@@ -146,7 +146,7 @@ tags = tags.collect { tag ->
 }
 */
 
-println "Found ${tags.size} images:"
+println "Found ${tags.size()} images:"
 
 println JsonOutput.prettyPrint(JsonOutput.toJson(tags))
 
@@ -164,7 +164,7 @@ if (args.length > 2) {
       println "Merging with extracted images..."
       tags.addAll(json)
       tags = tags.unique()
-      println "Total ${tags.size} images"
+      println "Total ${tags.size()} images"
     }
     else {
       println "File is not a Json array, skipping"
