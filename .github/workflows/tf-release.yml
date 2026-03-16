@@ -23,6 +23,7 @@ env:
 jobs:
   release:
     name: Release
+    timeout-minutes: 80
     runs-on: ubuntu-latest
 
     outputs:
